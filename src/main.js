@@ -7,6 +7,7 @@ import VueSweetAlert2 from 'vue-sweetalert2'
 import VueHead from "vue-head";
 
 import Empty from "./layouts/Empty"
+import vuetify from './plugins/vuetify';
 
 Vue.component("empty-layout", Empty);
 
@@ -16,6 +17,7 @@ Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
-	router,
-	render: h => h(App),
+    router,
+    vuetify,
+    render: h => h(App)
 }).$mount("#app");

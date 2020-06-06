@@ -16,7 +16,7 @@
 </template>
 
 <script>
-	import PostsService from '../services/PostsService'
+	import PostsService from '../services/LoginService'
 
 	export default {
 		name: 'addpost',
