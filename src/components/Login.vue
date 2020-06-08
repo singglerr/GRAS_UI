@@ -1,6 +1,6 @@
 <template>
 	<v-app id="inspire">
-		<v-content>
+		<v-content class="back">
 			<v-container
 				class="fill-height"
 				fluid
@@ -92,4 +92,9 @@
 </script>
 
 <style>
+	.back {
+		background-image: url("../assets/login-register-back.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
 </style>

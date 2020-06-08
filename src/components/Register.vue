@@ -1,6 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-content>
+        <v-content class="back">
             <v-container
                     class="fill-height"
                     fluid
@@ -110,7 +110,7 @@
                     const password = this.password;
                     const passConfirm = this.passConfirm;
 
-                    const res = await AuthService.register({name, email, password, passConfirm});
+                    const res = await AuthService.signup({name, email, password, passConfirm});
 
                     // console.log(res);
                 } catch (e) {
@@ -122,4 +122,9 @@
 </script>
 
 <style>
+    .back {
+        background-image: url("../assets/login-register-back.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
 </style>
