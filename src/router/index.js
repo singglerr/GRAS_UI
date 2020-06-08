@@ -4,7 +4,8 @@ import Posts from '../components/Posts'
 import AddPost from '../components/AddPost'
 import EditPost from '../components/EditPost'
 import Home from '../components/Home'
-import Auth from "../components/Login"
+import Login from "../components/Login"
+import Register from "../components/Register"
 
 Vue.use(Router);
 
@@ -35,7 +36,12 @@ export default new Router({
 		{
 			path: "/login",
 			name: "Login",
-			component: Auth
+			component: Login
+		},
+		{
+			path: "/register",
+			name: "Register",
+			component: Register
 		}
 	]
 })

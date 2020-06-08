@@ -30,7 +30,7 @@
 </template>
 
 <script>
-	import PostsService from '../services/LoginService'
+	import PostsService from '../services/AuthService'
 
 	export default {
 		name: 'posts',

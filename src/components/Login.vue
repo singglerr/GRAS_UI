@@ -1,6 +1,6 @@
 <template>
-<!--	<v-app id="inspire">-->
-<!--		<v-content>-->
+	<v-app id="inspire">
+		<v-content>
 			<v-container
 				class="fill-height"
 				fluid
@@ -9,6 +9,14 @@
 					align="center"
 					justify="center"
 				>
+					<v-col
+						cols="12"
+						sm="8"
+						md="3"
+					>
+						<v-img class="elevation-12" src="../assets/gras_icon.jpg" width="100%"></v-img>
+					</v-col>
+
 					<v-col
 						cols="12"
 						sm="8"
@@ -21,21 +29,6 @@
 								flat
 							>
 								<v-toolbar-title>Вход в систему</v-toolbar-title>
-								<v-spacer></v-spacer>
-								<v-tooltip bottom>
-									<template v-slot:activator="{ on }">
-										<v-btn
-											:href="source"
-											icon
-											large
-											target="_blank"
-											v-on="on"
-										>
-											<v-icon>mdi-code-tags</v-icon>
-										</v-btn>
-									</template>
-									<span>Source</span>
-								</v-tooltip>
 							</v-toolbar>
 							<v-card-text>
 								<v-form>
@@ -43,7 +36,8 @@
 										label="E-mail"
 										name="email"
 										prepend-icon="mdi-account"
-										type="text"
+										type="e-mail"
+										v-model="email"
 									></v-text-field>
 
 									<v-text-field
@@ -52,23 +46,49 @@
 										name="password"
 										prepend-icon="mdi-lock"
 										type="password"
+										v-model="password"
 									></v-text-field>
 								</v-form>
+
+								<router-link class="ml-4" to="/register"><u>Забыли пароль?</u></router-link>
 							</v-card-text>
 							<v-card-actions>
+								<router-link class="ml-4" to="/register"><u>Нет аккаунта? Зарегистрироваться</u></router-link>
+
 								<v-spacer></v-spacer>
-								<v-btn color="primary">Войти</v-btn>
+
+								<v-btn class="mr-5 mb-5" color="primary" @click="login()">Войти</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-col>
 				</v-row>
 			</v-container>
-<!--		</v-content>-->
-<!--	</v-app>-->
+		</v-content>
+	</v-app>
 </template>
 
 <script>
-	export default {}
+	import AuthService from "../services/AuthService";
+
+	export default {
+		data: () => ({
+			password: "",
+			email: "",
+		}),
+		methods: {
+			login: async function () {
+				try {
+					const email = this.email;
+					const password = this.password;
+					console.log(1, email, password);
+					const res = await AuthService.login({email, password});
+					// console.log(res);
+				} catch (e) {
+					console.log("catch", e);
+				}
+			}
+		}
+	}
 </script>
 
 <style>
