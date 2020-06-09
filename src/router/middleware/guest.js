@@ -1,5 +1,5 @@
 export default function guest({next, store, nextMiddleware}) {
-    if (store.getters.auth.loggedIn) {
+    if (store.getters.user.loggedIn) {
         return next({
             name: 'home'
         })

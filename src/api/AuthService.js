@@ -1,4 +1,4 @@
-import api from '../services/Api'
+import api from './config'
 
 export default {
 	login(params) {
@@ -11,5 +11,9 @@ export default {
 
 	signup(params) {
 		return api.post("/auth/register", params)
+	},
+
+	isLoggedIn() {
+		return api.get("/auth/loggedIn")
 	}
 }

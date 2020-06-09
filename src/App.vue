@@ -1,19 +1,40 @@
 <template>
-  <v-app>
-    <v-content>
-      <router-view/>
-    </v-content>
-  </v-app>
+    <v-app>
+        <component :is="layout">
+            <router-view/>
+        </component>
+    </v-app>
 </template>
 
 <script>
-export default {
-  name: 'App',
+    import AuthService from "./api/AuthService";
+    import config from "./config";
 
-  data: () => ({
-    //
-  }),
-};
+    export default {
+        name: 'App',
+
+        data: () => ({
+            //
+        }),
+        computed: {
+            layout() {
+                return (this.$route.meta.layout || config.DEFAULT_LAYOUT) + "-layout";
+            }
+        },
+
+        beforeCreate: async function () {
+            try {
+                const res = await AuthService.isLoggedIn();
+
+                if (res.data.isLoggedIn) {
+                    this.$store.commit("login");
+                    this.$router.go(-1);
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    };
 </script>
 
 <style>

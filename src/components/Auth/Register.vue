@@ -5,18 +5,12 @@
                     class="fill-height"
                     fluid
             >
+                <Logo></Logo>
+
                 <v-row
                         align="center"
                         justify="center"
                 >
-                    <v-col
-                            cols="12"
-                            sm="8"
-                            md="3"
-                    >
-                        <v-img class="elevation-12" src="../assets/gras_icon.jpg" width="100%"></v-img>
-                    </v-col>
-
                     <v-col
                             cols="12"
                             sm="8"
@@ -91,9 +85,11 @@
 </template>
 
 <script>
-    import AuthService from "../services/AuthService";
+    import AuthService from "../../api/AuthService";
+    import Logo from "./Logo";
 
     export default {
+        components: {Logo},
         data: () => ({
             password: "",
             passConfirm: "",
@@ -123,7 +119,7 @@
 
 <style>
     .back {
-        background-image: url("../assets/login-register-back.jpg");
+        background-image: url("../../assets/52c1edd6ba4c1.jpg");
         background-size: cover;
         background-repeat: no-repeat;
     }

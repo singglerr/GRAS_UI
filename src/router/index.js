@@ -3,8 +3,9 @@ import Router from 'vue-router'
 import store from "../store"
 
 import Home from '../components/Home'
-import Login from "../components/Login"
-import Register from "../components/Register"
+import Login from "../components/Auth/Login"
+import Register from "../components/Auth/Register"
+import RiskModule from "../components/RiskModule";
 
 import guest from "./middleware/guest"
 import auth from "./middleware/auth"
@@ -43,6 +44,17 @@ const router = new Router({
                 middleware: [
                     guest
                 ]
+            }
+        },
+        {
+            path: "/modules/risk",
+            component: RiskModule,
+            name: "risk-module",
+            meta: {
+                middleware: [
+                    auth
+                ],
+                layout: "module",
             }
         }
     ]

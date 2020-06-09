@@ -12,35 +12,19 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"><strong><big>СИСТЕМА АНАЛИЗА ГЕРИАТРИЧЕСКИХ
-                            РИСКОВ</big></strong></a>
+                        <a class="navbar-brand">
+                            <strong><big>СИСТЕМА АНАЛИЗА ГЕРИАТРИЧЕСКИХ РИСКОВ</big></strong>
+                        </a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="navbar-collapse-2">
                         <ul class="nav navbar-nav navbar-right">
-
                             <li>
                                 <a class="btn btn-default btn-outline btn-circle" data-toggle="collapse"
-                                   href="#nav-collapse2"
-                                   aria-expanded="false" aria-controls="nav-collapse2">Войти</a>
+                                   aria-expanded="false" aria-controls="nav-collapse2" @click="logout()">Выход</a>
                             </li>
                         </ul>
-                        <div class="collapse nav navbar-nav nav-collapse" id="nav-collapse2">
-                            <form class="navbar-form navbar-right form-inline" role="form">
-                                <div class="form-group">
-                                    <label class="sr-only" for="Email">Email</label>
-                                    <input type="email" class="form-control" id="Email" placeholder="Email" autofocus
-                                           required/>
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="Password">Password</label>
-                                    <input type="password" class="form-control" id="Password" placeholder="Password"
-                                           required/>
-                                </div>
-
-                            </form>
-                        </div>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container -->
             </nav><!-- /.navbar -->
@@ -69,8 +53,7 @@
                                     <p class="delimiter">&nbsp;</p>
                                     <p class="delimiter">&nbsp;</p>
                                     <h4>Обработка информации для проведения медико-статистического анализа
-                                        данных в
-                                        гериатрии</h4>
+                                        данных в гериатрии</h4>
                                 </div>
                             </a>
                         </div>
@@ -120,7 +103,7 @@
 
                     <div class="col-md-3 welcome-grid text-center">
                         <div class="ih-item circle effect9 left_to_right">
-                            <a href="#">
+                            <router-link to="/modules/risk">
                                 <div class="img"><img src="../assets/анализ рисков1.jpg" alt=""/></div>
                                 <div class="info">
                                     <p class="delimiter">&nbsp;</p>
@@ -128,7 +111,7 @@
                                     <h4>Исследование,решение проблем управления индивидуальными и групповыми
                                         рисками в гериатрии</h4>
                                 </div>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
 
@@ -167,12 +150,27 @@
 </template>
 
 <script>
+    import AuthService from "../api/AuthService";
+
     export default {
         data: function () {
             return {
                 title: "САГР - Главная",
             }
         },
+
+        methods: {
+            logout: async function () {
+                const res = await AuthService.logout();
+
+                if (res.data.success) {
+                    this.$store.commit("logout");
+
+                    this.$router.push({name: "login"});
+                }
+            }
+        },
+
         head: {
             title: function () {
                 return {
@@ -207,6 +205,7 @@
 
 <style type="text/css">
 
+
     p.delimiter {
         height: 21px;
     }
@@ -218,9 +217,11 @@
 	}
 
     #home {
-        background: #87ffe9;
-        background: -webkit-linear-gradient(to top, #87ffe9, #87ffe9);
-        background: linear-gradient(to top, #0ff2c9, #FFFBD5);
+        /*background: #87ffe9;*/
+        background-image: url("../assets/52c1edd6ba4c1.jpg");
+        /*background: -webkit-linear-gradient(to top, #87ffe9, #87ffe9);*/
+        /*background: linear-gradient(to top, #0ff2c9, #FFFBD5);*/
+        /*background: #f2f2f2;*/
         width: 100%;
         height: 100vh;
     }
@@ -298,16 +299,21 @@
         }
     }
 
+    :root {
+        --nav-color: #35ce96;
+    }
+
     .navbar-brand {
         position: relative;
+        color: #ffffff;
         z-index: 2;
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .navbar.navbar-default {
         position: relative;
         z-index: 2;
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .navbar-nav.navbar-right .btn {
@@ -315,17 +321,17 @@
         z-index: 2;
         padding: 4px 20px;
         margin: 10px auto;
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .navbar .navbar-collapse {
         position: relative;
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .navbar .navbar-collapse .navbar-right > li:last-child {
         padding-left: 22px;
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .navbar .nav-collapse {
@@ -339,58 +345,58 @@
         padding-right: 120px;
         padding-left: 80px;
         width: 100%;
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .navbar.navbar-default .nav-collapse {
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .navbar.navbar-inverse .nav-collapse {
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .navbar .nav-collapse .navbar-form {
         border-width: 0;
         box-shadow: none;
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .nav-collapse > li {
         float: right;
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .btn.btn-circle {
         border-radius: 20px;
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     .btn.btn-outline {
-        background-color: #FFD700;
+        background-color: var(--nav-color);
     }
 
     @media screen and (max-width: 0px) {
         .navbar .navbar-collapse .navbar-right > li:last-child {
             padding-left: 15px;
             padding-right: 15px;
-            background-color: #FFD700;
+            background-color: var(--nav-color);
         }
 
         .navbar .nav-collapse {
             margin: 7.5px auto;
             padding: 0;
-            background-color: #FFD700;
+            background-color: var(--nav-color);
         }
 
         .navbar .nav-collapse .navbar-form {
             margin: 0;
-            background-color: #FFD700;
+            background-color: var(--nav-color);
         }
 
         .nav-collapse > li {
             float: none;
-            background-color: #FFD700;
+            background-color: var(--nav-color);
         }
     }
 
