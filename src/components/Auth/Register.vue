@@ -106,9 +106,20 @@
                     const password = this.password;
                     const passConfirm = this.passConfirm;
 
-                    const res = await AuthService.signup({name, email, password, passConfirm});
+                    let res = await AuthService.signup({name, email, password, passConfirm});
+                    if (!res.data.success) {
+                        //TODO обработка ошибок регистрации
 
-                    // console.log(res);
+                        return;
+                    }
+
+                    res = await AuthService.login({email, password});
+                    if (res.data.success) {
+                        this.$store.commit("login");
+                        this.$router.push({name: "home"});
+                    } else {
+                        this.$router.push({name: "login"});
+                    }
                 } catch (e) {
                     console.log("catch", e);
                 }
