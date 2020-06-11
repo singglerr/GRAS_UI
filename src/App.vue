@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import AuthService from "./api/AuthService";
+    import AuthService from "./api/auth";
     import config from "./config";
 
     export default {

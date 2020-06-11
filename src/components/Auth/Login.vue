@@ -65,7 +65,7 @@
 </template>
 
 <script>
-    import AuthService from "../../api/AuthService";
+    import AuthAPI from "../../api/auth";
     import Logo from "./Logo";
 
     export default {
@@ -80,7 +80,7 @@
                     const email = this.email;
                     const password = this.password;
 
-                    const res = await AuthService.login({email, password});
+                    const res = await AuthAPI.login({email, password});
 
                     console.log(res);
 

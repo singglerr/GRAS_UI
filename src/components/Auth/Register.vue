@@ -85,7 +85,7 @@
 </template>
 
 <script>
-    import AuthService from "../../api/AuthService";
+    import AuthAPI from "../../api/auth";
     import Logo from "./Logo";
 
     export default {
@@ -106,14 +106,14 @@
                     const password = this.password;
                     const passConfirm = this.passConfirm;
 
-                    let res = await AuthService.signup({name, email, password, passConfirm});
+                    let res = await AuthAPI.signup({name, email, password, passConfirm});
                     if (!res.data.success) {
                         //TODO обработка ошибок регистрации
 
                         return;
                     }
 
-                    res = await AuthService.login({email, password});
+                    res = await AuthAPI.login({email, password});
                     if (res.data.success) {
                         this.$store.commit("login");
                         this.$router.push({name: "home"});

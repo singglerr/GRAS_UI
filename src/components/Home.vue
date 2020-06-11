@@ -150,7 +150,7 @@
 </template>
 
 <script>
-    import AuthService from "../api/AuthService";
+    import AuthAPI from "../api/auth";
 
     export default {
         data: function () {
@@ -161,7 +161,7 @@
 
         methods: {
             logout: async function () {
-                const res = await AuthService.logout();
+                const res = await AuthAPI.logout();
 
                 if (res.data.success) {
                     this.$store.commit("logout");
