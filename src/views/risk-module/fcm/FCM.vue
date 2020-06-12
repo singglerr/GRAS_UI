@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-card class="elevation-8 ma-4">
+        <v-card class="elevation-8 ma-4 pa-4">
             <v-card-title>Нечёткие когнитивные карты</v-card-title>
 
             <v-card-text>
@@ -9,10 +9,10 @@
                 <p><h3>Выходные данные: </h3>{{outputDesc}}</p>
             </v-card-text>
 
-            <v-tabs v-model="activeTab" grow>
+            <v-tabs v-model="activeTab" grow >
                 <v-tabs-slider></v-tabs-slider>
 
-                <v-tab v-for="tab of tabs" :key="tab.id" :to="tab.route" exact>
+                <v-tab v-for="tab of tabs" :key="tab.id" :to="tab.route" exact >
                     {{ tab.name }}
                 </v-tab>
             </v-tabs>

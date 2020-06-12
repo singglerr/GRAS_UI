@@ -10,14 +10,18 @@ export default new Vuex.Store({
             email: "",
             loggedIn: false,
         },
-        drawer: null,
-        barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',
-        barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
+        fcm: {
+            concepts: [],
+        }
     },
 
     getters: {
         user(state) {
-            return state.user
+            return state.user;
+        },
+
+        fcmConcepts(state) {
+            return state.fcm.concepts;
         }
     },
 
@@ -37,5 +41,22 @@ export default new Vuex.Store({
         SET_DRAWER(state, payload) {
             state.drawer = payload
         },
+
+        fcmAddConcept(state, payload) {
+            state.fcm.concepts.push(payload.item);
+            const length = state.fcm.concepts.length;
+            state.fcm.concepts[length - 1].id = length;
+        },
+
+        fcmDeleteConcept(state, payload) {
+            state.fcm.concepts.splice(payload.index, 1);
+            for (let i = payload.index; i < state.fcm.concepts.length; i++) {
+                state.fcm.concepts[i].id--;
+            }
+        },
+
+        fcmEditConcept(state, payload) {
+            Object.assign(state.fcm.concepts[payload.index], payload.item);
+        }
     }
 })
