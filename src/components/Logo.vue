@@ -9,7 +9,7 @@
                 sm="8"
                 md="2"
         >
-            <v-img src="../../assets/11111111111.png" width="100%"></v-img>
+            <v-img src="../assets/11111111111.png" width="100%"></v-img>
         </v-col>
     </v-row>
 </template>

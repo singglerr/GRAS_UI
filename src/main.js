@@ -12,8 +12,8 @@ import vuetify from './plugins/vuetify';
 import Empty from "./layouts/Empty"
 import Module from "./layouts/Module";
 
-Vue.component("empty-layout", Empty);
-Vue.component("module-layout", Module)
+// Vue.component("empty-layout", Empty);
+// Vue.component("module-layout", Module)
 
 Vue.use(VueSweetAlert2);
 Vue.use(VueHead);

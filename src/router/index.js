@@ -2,11 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from "../store"
 
-import Home from '../components/Home'
-import Login from "../components/Auth/Login"
-import Register from "../components/Auth/Register"
-import RiskModule from "../components/RiskModule";
-
 import guest from "./middleware/guest"
 import auth from "./middleware/auth"
 import middlewarePipeline from "./middlewarePipeline";
@@ -18,18 +13,18 @@ const router = new Router({
     routes: [
         {
             path: "/",
-            component: Home,
+            component: () => import("../views/Home"),
             name: "home",
             meta: {
                 middleware: [
                     auth
                 ]
-            }
+            },
         },
         {
             path: "/login",
             name: "login",
-            component: Login,
+            component: () => import("../views/auth/Login"),
             meta: {
                 middleware: [
                     guest
@@ -39,7 +34,7 @@ const router = new Router({
         {
             path: "/register",
             name: "register",
-            component: Register,
+            component: () => import("../views/auth/Register"),
             meta: {
                 middleware: [
                     guest
@@ -47,36 +42,133 @@ const router = new Router({
             }
         },
         {
-            path: "/modules/risk",
-            component: RiskModule,
+            path: "/modules/risk/",
+            component: () => import("../views/risk-module/RiskModule"),
             name: "risk-module",
             meta: {
                 middleware: [
                     auth
                 ],
-                layout: "module",
-            }
+            },
+            children: [
+                {
+                    path: "",
+                    component: () => import("../views/risk-module/Info"),
+                    name: "Info",
+                    meta: {
+                        middleware: [
+                            auth
+                        ],
+                    },
+                },
+                {
+                    path: "lvm",
+                    component: () => import("../views/risk-module/lvm/LVM"),
+                    name: "LVM",
+                    meta: {
+                        middleware: [
+                            auth
+                        ],
+                    },
+                },
+                {
+                    path: "dmp",
+                    component: () => import("../views/risk-module/dmp/DMP"),
+                    name: "DMP",
+                    meta: {
+                        middleware: [
+                            auth
+                        ],
+                    },
+                },
+                {
+                    path: "fcm",
+                    component: () => import("../views/risk-module/fcm/FCM"),
+                    name: "FCM",
+                    children: [
+                        {
+                            path: "",
+                            redirect: "concepts",
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        },
+                        {
+                            path: "concepts",
+                            name: "fcm/concept",
+                            component: () => import("../views/risk-module/fcm/Concepts"),
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        },
+                        {
+                            path: "matrix",
+                            name: "fcm/matrix",
+                            component: () => import("../views/risk-module/fcm/InfluenceMatrix"),
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        },
+                        {
+                            path: "graph",
+                            name: "fcm/graph",
+                            component: () => import("../views/risk-module/fcm/Graph"),
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        },
+                        {
+                            path: "static",
+                            name: "fcm/static",
+                            component: () => import("../views/risk-module/fcm/StaticMod"),
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        },
+                        {
+                            path: "dynamic",
+                            name: "fcm/dynamic",
+                            component: () => import("../views/risk-module/fcm/DynamicMod"),
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        }
+                    ]
+                }
+            ]
         }
     ]
-})
+});
 
 router.beforeEach((to, from, next) => {
     if (!to.meta.middleware) {
         return next()
     }
 
-    const middleware = to.meta.middleware
+    const middleware = to.meta.middleware;
     const context = {
         to,
         from,
         next,
         store
-    }
+    };
 
     return middleware[0]({
         ...context,
         nextMiddleware: middlewarePipeline(context, middleware, 1)
     })
-})
+});
 
 export default router

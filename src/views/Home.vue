@@ -31,10 +31,12 @@
 
             <div class="welcome-grids">
                 <div class="container">
-                    <div class="col-md-3 welcome-grid text-center align-middle">
+                    <div class="col-md-3 welcome-grid text-center">
                         <div class="ih-item circle effect9 left_to_right">
-                            <a href="ведение гериатрических карт.html" target="_blank">
-                                <div class="img"><img src="../assets/ведение гериатрических карт1.jpg" alt=""/></div>
+                            <a href="/">
+                                <div class="img">
+                                    <img src="../assets/ведение гериатрических карт1.jpg" alt=""/>
+                                </div>
                                 <div class="info">
 									<p>&nbsp;</p>
 									<p class="delimiter">&nbsp;</p>
@@ -47,7 +49,7 @@
 
                     <div class="col-md-3 welcome-grid text-center">
                         <div class="ih-item circle effect9 left_to_right">
-                            <a href="#">
+                            <a href="/">
                                 <div class="img"><img src="../assets/статистический анализ данных1.jpg" alt=""/></div>
                                 <div class="info">
                                     <p class="delimiter">&nbsp;</p>
@@ -61,7 +63,7 @@
 
                     <div class="col-md-3 welcome-grid text-center">
                         <div class="ih-item circle effect9 left_to_right">
-                            <a href="ИМТ.html" target="_blank">
+                            <a href="/">
                                 <div class="img"><img src="../assets/гериатрические калькуляторы1.jpg" alt=""/></div>
                                 <div class="info">
                                     <p class="delimiter">&nbsp;</p>
@@ -74,7 +76,7 @@
 
                     <div class="col-md-3 welcome-grid text-center">
                         <div class="ih-item circle effect9 left_to_right">
-                            <a href="#">
+                            <a href="/">
                                 <div class="img"><img src="../assets/формирование методик лечения1.jpg" alt=""/></div>
                                 <div class="info">
                                     <p class="delimiter">&nbsp;</p>
@@ -86,11 +88,11 @@
                         </div>
                     </div>
 
-                    <p>&nbsp;</p>
+                    <p class="delimiter">&nbsp;</p>
 
                     <div class="col-md-3 welcome-grid text-center">
                         <div class="ih-item circle effect9 left_to_right">
-                            <a href="#">
+                            <a href="/">
                                 <div class="img"><img src="../assets/оценка эффективности лечения1.jpg" alt=""/></div>
                                 <div class="info">
                                     <p class="delimiter">&nbsp;</p>
@@ -103,7 +105,7 @@
 
                     <div class="col-md-3 welcome-grid text-center">
                         <div class="ih-item circle effect9 left_to_right">
-                            <router-link to="/modules/risk">
+                            <router-link to="/modules/risk/">
                                 <div class="img"><img src="../assets/анализ рисков1.jpg" alt=""/></div>
                                 <div class="info">
                                     <p class="delimiter">&nbsp;</p>
@@ -117,7 +119,7 @@
 
                     <div class="col-md-3 welcome-grid text-center">
                         <div class="ih-item circle effect9 left_to_right">
-                            <a href="#">
+                            <a href="/">
                                 <div class="img"><img src="../assets/формирование карт рисков1.jpg" alt=""/></div>
                                 <div class="info">
                                     <p class="delimiter">&nbsp;</p>
@@ -130,7 +132,7 @@
 
                     <div class="col-md-3 welcome-grid text-center">
                         <div class="ih-item circle effect9 left_to_right">
-                            <a href="#">
+                            <a href="/">
                                 <div class="img"><img src="../assets/выбор лучшей методики лечения1.jpg" alt="A"/></div>
                                 <div class="info">
                                     <p class="delimiter">&nbsp;</p>
@@ -204,7 +206,9 @@
 </script>
 
 <style type="text/css">
-
+    .col-md-3.welcome-grid.text-center {
+        padding: 15px;
+    }
 
     p.delimiter {
         height: 21px;
@@ -217,11 +221,7 @@
 	}
 
     #home {
-        /*background: #87ffe9;*/
         background-image: url("../assets/52c1edd6ba4c1.jpg");
-        /*background: -webkit-linear-gradient(to top, #87ffe9, #87ffe9);*/
-        /*background: linear-gradient(to top, #0ff2c9, #FFFBD5);*/
-        /*background: #f2f2f2;*/
         width: 100%;
         height: 100vh;
     }

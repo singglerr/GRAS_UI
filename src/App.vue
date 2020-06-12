@@ -1,9 +1,9 @@
 <template>
-    <v-app>
-        <component :is="layout">
+<!--    <v-app>-->
+<!--        <component :is="layout">-->
             <router-view/>
-        </component>
-    </v-app>
+<!--        </component>-->
+<!--    </v-app>-->
 </template>
 
 <script>
@@ -16,11 +16,11 @@
         data: () => ({
             //
         }),
-        computed: {
-            layout() {
-                return (this.$route.meta.layout || config.DEFAULT_LAYOUT) + "-layout";
-            }
-        },
+        // computed: {
+        //     layout() {
+        //         return (this.$route.meta.layout || config.DEFAULT_LAYOUT) + "-layout";
+        //     }
+        // },
 
         beforeCreate: async function () {
             try {

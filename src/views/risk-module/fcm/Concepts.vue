@@ -1,12 +1,12 @@
 <template>
-    <v-content>
-        asdasdasdasd
-    </v-content>
+    <v-card flat>
+        sdfmasdfnasdfjn
+    </v-card>
 </template>
 
 <script>
     export default {
-        name: "RiskModule"
+        name: "Concepts"
     }
 </script>
 
