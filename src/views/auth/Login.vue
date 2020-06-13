@@ -82,6 +82,8 @@
 
                     const res = await AuthAPI.login({email, password});
 
+                    console.log(res);
+
                     if (!res.data.success) {
                         //TODO алёрт с ошибкой логина
 
@@ -91,6 +93,7 @@
                     this.$store.commit("login");
 
                     await this.$router.push({name: "home"});
+                    debugger;
                 } catch (e) {
                     console.log("catch", e);
                 }
