@@ -107,6 +107,9 @@
 
             initialize() {
                 const concepts = this.$store.state.fcm.concepts;
+                if (this.$store.state.fcm.matrix.length !== 0) {
+                    return;
+                }
 
                 for (let i = 0; i < concepts.length; i++) {
                     this.headers.push({
@@ -115,7 +118,6 @@
                     })
                 }
 
-                this.$store.commit("fcmMatrixReset");
                 for (let i = 0; i < concepts.length; i++) {
                     const row = {};
                     row.name = concepts[i].name;

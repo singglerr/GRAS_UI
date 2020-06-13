@@ -82,8 +82,6 @@
 
                     const res = await AuthAPI.login({email, password});
 
-                    console.log(res);
-
                     if (!res.data.success) {
                         //TODO алёрт с ошибкой логина
 
