@@ -107,15 +107,16 @@
 
             initialize() {
                 const concepts = this.$store.state.fcm.concepts;
-                if (this.$store.state.fcm.matrix.length !== 0) {
-                    return;
-                }
 
                 for (let i = 0; i < concepts.length; i++) {
                     this.headers.push({
                         text: concepts[i].name,
                         value: i.toString(),
                     })
+                }
+
+                if (this.$store.state.fcm.matrix.length !== 0) {
+                    return;
                 }
 
                 for (let i = 0; i < concepts.length; i++) {
