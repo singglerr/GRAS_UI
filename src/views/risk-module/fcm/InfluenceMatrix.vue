@@ -81,7 +81,7 @@
                 if (this.isValid(item[header.value])) {
                     this.snack = true;
                     this.snackColor = 'success';
-                    this.snackText = 'Data saved'
+                    this.snackText = 'Сохранено'
                 } else {
                     console.log(item[header.value]);
                     event.preventDefault();
@@ -92,13 +92,13 @@
             cancel() {
                 this.snack = true;
                 this.snackColor = 'error';
-                this.snackText = 'Canceled'
+                this.snackText = 'Отмена'
             },
 
             open() {
                 this.snack = true;
                 this.snackColor = 'info';
-                this.snackText = 'Dialog opened'
+                this.snackText = 'Изменение'
             },
 
             close() {

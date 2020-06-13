@@ -65,8 +65,9 @@ export default new Vuex.Store({
             const length = state.fcm.concepts.length;
             state.fcm.concepts[length - 1].id = length;
 
+            const index = (length - 1).toString();
             for (let row of state.fcm.matrix) {
-                row[(length - 1).toString()] = 0;
+                row[index] = 0;
             }
 
             const newRow = {name: payload.item.name};
