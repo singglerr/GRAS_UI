@@ -12,9 +12,9 @@
                 <tbody>
                 <tr v-for="(item,idx,k) in items" :key="idx">
                     <td v-for="(header,key) in headers" :key="key">
-                        <v-chip v-if="header.value !== 'name'" :color="getColor(item, header)">
+                        <v-chip v-if="header.value !== 'name' && item.name !== header.text"
+                                :color="getColor(item, header)">
                             <v-edit-dialog
-
                                     :return-value.sync="item[header.value]"
                                     @save="save(item, header)"
                                     @cancel="cancel"
@@ -32,6 +32,7 @@
                                 </template>
                             </v-edit-dialog>
                         </v-chip>
+                        <v-chip v-else-if="item.name === header.text">{{item[header.value]}}</v-chip>
                         <div v-else>{{item[header.value]}}</div>
                     </td>
                 </tr>
@@ -69,9 +70,7 @@
                     const num = Number.parseFloat(input);
                     return (-1 <= num && num <= 1) || "Not a number between -1 and 1";
                 },
-                headers: [
-                    {text: 'Название', align: 'start', value: 'name'},
-                ],
+                headers: null,
             }
         },
         created() {
@@ -87,6 +86,7 @@
                     console.log(item[header.value]);
                     event.preventDefault();
                 }
+                this.$nextTick();
             },
 
             cancel() {
@@ -102,31 +102,33 @@
             },
 
             close() {
-                console.log('Dialog closed')
+                // console.log('Dialog closed')
             },
 
             initialize() {
                 const concepts = this.$store.state.fcm.concepts;
 
+                this.headers = [
+                    {text: 'Название', align: 'start', value: 'name'},
+                ];
+
+                // this.$store.commit("fcmMatrixReset");
                 for (let i = 0; i < concepts.length; i++) {
                     this.headers.push({
                         text: concepts[i].name,
                         value: i.toString(),
                     })
                 }
-
-                if (this.$store.state.fcm.matrix.length !== 0) {
-                    return;
-                }
-
-                for (let i = 0; i < concepts.length; i++) {
-                    const row = {};
-                    row.name = concepts[i].name;
-                    for (let j = 1; j < this.headers.length; j++) {
-                        row[this.headers[j].value] = 0;
-                    }
-                    this.$store.state.fcm.matrix.push(row);
-                }
+                //
+                // for (let i = 0; i < concepts.length; i++) {
+                //     const row = {};
+                //     row.name = concepts[i].name;
+                //     for (let j = 1; j < this.headers.length; j++) {
+                //         row[this.headers[j].value] = 0;
+                //     }
+                //
+                //     this.$store.state.fcm.matrix.push(row);
+                // }
             },
 
             getColor(item, header) {
@@ -135,7 +137,7 @@
                 } else if (item[header.value] < 0) {
                     return "red"
                 }
-            }
+            },
         },
     }
 </script>

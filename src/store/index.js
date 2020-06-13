@@ -64,9 +64,27 @@ export default new Vuex.Store({
             state.fcm.concepts.push(payload.item);
             const length = state.fcm.concepts.length;
             state.fcm.concepts[length - 1].id = length;
+
+            for (let row of state.fcm.matrix) {
+                row[(length - 1).toString()] = 0;
+            }
+
+            const newRow = {name: payload.item.name};
+            for (let i = 0; i < length; i++) {
+                newRow[i.toString()] = 0;
+            }
+
+            state.fcm.matrix.push(newRow);
         },
 
         fcmDeleteConcept(state, payload) {
+            if (state.fcm.matrix.length !== 0) {
+                state.fcm.matrix.splice(payload.index, 1);
+                for (let row of state.fcm.matrix) {
+                    delete row[index.toString()];
+                }
+            }
+
             state.fcm.concepts.splice(payload.index, 1);
             for (let i = payload.index; i < state.fcm.concepts.length; i++) {
                 state.fcm.concepts[i].id--;
@@ -75,6 +93,7 @@ export default new Vuex.Store({
 
         fcmEditConcept(state, payload) {
             Object.assign(state.fcm.concepts[payload.index], payload.item);
+            state.fcm.matrix[payload.index].name = payload.item.name;
         },
 
         fcmMatrixReset(state) {
