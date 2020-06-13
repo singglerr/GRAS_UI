@@ -7,7 +7,6 @@
                 disable-filtering
                 disable-pagination
                 hide-default-footer
-                class="elevation-0"
         >
             <template v-slot:top>
                 <v-toolbar flat color="white">
@@ -144,13 +143,13 @@
             },
 
             editItem(item) {
-                this.editedIndex = this.$store.getters.fcmConcepts.indexOf(item)
-                this.editedItem = Object.assign({}, item)
+                this.editedIndex = this.$store.getters.fcmConcepts.indexOf(item);
+                this.editedItem = Object.assign({}, item);
                 this.dialog = true
             },
 
             deleteItem(item) {
-                const index = this.$store.getters.fcmConcepts.indexOf(item)
+                const index = this.$store.getters.fcmConcepts.indexOf(item);
                 confirm('Вы действительно хотите удалить этот концепт?') && this.$store.commit({
                     type: "fcmDeleteConcept",
                     index: index,
@@ -160,7 +159,7 @@
             close() {
                 this.dialog = false;
                 this.$nextTick(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem)
+                    this.editedItem = Object.assign({}, this.defaultItem);
                     this.editedIndex = -1
                 })
             },

@@ -27,7 +27,9 @@ export default new Vuex.Store({
                 "среднее",
                 "выше среднего",
                 "высокое"
-            ]
+            ],
+            matrix: [],
+
         }
     },
 
@@ -73,6 +75,10 @@ export default new Vuex.Store({
 
         fcmEditConcept(state, payload) {
             Object.assign(state.fcm.concepts[payload.index], payload.item);
+        },
+
+        fcmMatrixReset(state) {
+            state.fcm.matrix = [];
         }
     }
 })
