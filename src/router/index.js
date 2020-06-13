@@ -80,6 +80,47 @@ const router = new Router({
                             auth
                         ],
                     },
+                    children: [
+                        {
+                            path: "",
+                            redirect: "states",
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        },
+                        {
+                            path: "states",
+                            name: "dmp/states",
+                            component: () => import("../views/risk-module/dmp/States"),
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        },
+                        {
+                            path: "strategies",
+                            name: "dmp/strategies",
+                            component: () => import("../views/risk-module/dmp/Strategies"),
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        },
+                        {
+                            path: "model",
+                            name: "dmp/model",
+                            component: () => import("../views/risk-module/dmp/Model"),
+                            meta: {
+                                middleware: [
+                                    auth
+                                ],
+                            },
+                        },
+                    ]
                 },
                 {
                     path: "fcm",

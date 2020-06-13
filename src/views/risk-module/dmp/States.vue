@@ -2,7 +2,7 @@
     <v-card class="elevation-0 pa-6">
         <v-data-table
                 :headers="headers"
-                :items="$store.state.fcm.concepts"
+                :items="$store.state.dmp.states"
                 disable-sort
                 disable-filtering
                 disable-pagination
@@ -11,7 +11,7 @@
             <template v-slot:top>
                 <v-toolbar flat color="white">
                     <v-spacer></v-spacer>
-                    <v-dialog v-model="dialog" max-width="800px">
+                    <v-dialog v-model="dialog" max-width="400px">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                                     color="primary"
@@ -19,7 +19,7 @@
                                     class="mb-2"
                                     v-bind="attrs"
                                     v-on="on"
-                            >Добавить концепт
+                            >Добавить состояние
                             </v-btn>
                         </template>
                         <v-card>
@@ -29,23 +29,7 @@
 
                             <v-card-text>
                                 <v-container>
-                                    <v-row>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.name" label="Название"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-select :items="$store.state.fcm.conceptTypes" v-model="editedItem.type" label="Тип"></v-select>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-select :items="$store.state.fcm.conceptGroups" v-model="editedItem.group" label="Группа"></v-select>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-select :items="$store.state.fcm.conceptValues" v-model="editedItem.startValue" label="Начальное значение"></v-select>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-select :items="$store.state.fcm.conceptValues" v-model="editedItem.goalValue" label="Целевое значение"></v-select>
-                                        </v-col>
-                                    </v-row>
+                                    <v-text-field v-model="editedItem.name" label="Название"></v-text-field>
                                 </v-container>
                             </v-card-text>
 
@@ -76,7 +60,7 @@
             <template v-slot:no-data>
                 <v-card flat>
                     <v-card-text>
-                        Добавьте новые концепты
+                        Добавьте состояния
                     </v-card-text>
                 </v-card>
             </template>
@@ -86,44 +70,34 @@
 
 <script>
     export default {
+        name: "States",
         data: () => ({
             dialog: false,
             headers: [
                 {
                     text: 'Номер',
-                    align: 'start',
+                    align: 'center',
                     value: 'id',
+                    width: "100px"
                 },
-                {text: 'Название', value: 'name'},
-                {text: 'Тип', value: 'type'},
-                {text: 'Группа', value: 'group'},
-                {text: 'Начальное значение', value: 'startValue'},
-                {text: 'Целевое значение', value: 'goalValue'},
-                {text: '', value: 'actions'},
+                {text: 'Название', value: 'name', align: "start", width: "500px"},
+                {text: '', value: 'actions', align: "center", width: "100px"},
+
             ],
-            concepts: [],
-            editedIndex: -1,
+            editing: false,
             editedItem: {
                 id: 0,
                 name: "",
-                type: "",
-                group: "",
-                startValue: "",
-                goalValue: "",
             },
             defaultItem: {
                 id: 0,
                 name: "",
-                type: "",
-                group: "",
-                startValue: "",
-                goalValue: "",
             },
         }),
 
         computed: {
             formTitle() {
-                return this.editedIndex === -1 ? 'Добавление концепта' : 'Изменение концепта'
+                return this.editing ? 'Изменение состояния' : 'Добавление состояния';
             },
         },
 
@@ -133,19 +107,18 @@
             },
         },
 
-        methods: {
 
+        methods: {
             editItem(item) {
-                this.editedIndex = this.$store.getters.fcmConcepts.indexOf(item);
                 this.editedItem = Object.assign({}, item);
-                this.dialog = true
+                this.dialog = true;
+                this.editing = true;
             },
 
             deleteItem(item) {
-                const index = this.$store.getters.fcmConcepts.indexOf(item);
-                confirm('Вы действительно хотите удалить этот концепт?') && this.$store.commit({
-                    type: "fcmDeleteConcept",
-                    index: index,
+                confirm('Вы действительно хотите удалить это состояние?') && this.$store.commit({
+                    type: "dmpDeleteState",
+                    item: item,
                 })
             },
 
@@ -161,30 +134,31 @@
                 if (this.validateItem()) {
                     if (this.editedIndex > -1) {
                         this.$store.commit({
-                            type: "fcmEditConcept",
+                            type: "dmpEditState",
                             item: this.editedItem,
-                            index: this.editedIndex
-                        })
+                        });
+
+                        this.editing = false;
                     } else {
                         this.$store.commit({
-                            type: "fcmAddConcept",
+                            type: "dmpAddState",
                             item: this.editedItem
                         })
                     }
 
                     this.close()
                 } else {
-                    alert("Заполните все поля!");
+                    alert("Заполните название!");
                 }
             },
 
             validateItem() {
-                return this.editedItem.name
-                    && this.editedItem.type
-                    && this.editedItem.group
-                    && this.editedItem.startValue
-                    && this.editedItem.goalValue
+                return !!this.editedItem.name
             }
         },
     }
 </script>
+
+<style scoped>
+
+</style>

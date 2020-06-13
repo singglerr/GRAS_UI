@@ -25,7 +25,7 @@
     export default {
         name: "FCM",
         data: () => ({
-            activeTab: "/modules/risk/fcm#concepts",
+            activeTab: "/modules/risk/fcm/concepts",
             tabs: [
                 {id: 1, name: "Концепты", route: "/modules/risk/fcm/concepts"},
                 {id: 2, name: "Матрица влияний", route: "/modules/risk/fcm/matrix"},
@@ -41,14 +41,5 @@
             inputDesc: "Клинические показатели, информация из гериатрических карт пациентов, взаимное влияние рассматриваемых факторов.",
             outputDesc: "Визуализация НКК, риски возникновения наблюдаемых синдромов и динамика их развития.",
         }),
-        components: {
-            Concepts: import("./Concepts"),
-            InfluenceMatrix: import("./InfluenceMatrix"),
-
-        }
     }
 </script>
-
-<style scoped>
-
-</style>

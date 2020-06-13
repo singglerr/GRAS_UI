@@ -83,10 +83,11 @@
                     this.snackColor = 'success';
                     this.snackText = 'Сохранено'
                 } else {
-                    console.log(item[header.value]);
                     event.preventDefault();
+                    this.$nextTick(() => {
+                        item[header.value] = 0;
+                    })
                 }
-                this.$nextTick();
             },
 
             cancel() {
@@ -117,6 +118,7 @@
                     this.headers.push({
                         text: concepts[i].name,
                         value: i.toString(),
+                        align: "center",
                     })
                 }
                 //
