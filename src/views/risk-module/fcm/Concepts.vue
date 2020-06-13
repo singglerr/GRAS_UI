@@ -2,7 +2,7 @@
     <v-card class="elevation-0 pa-6">
         <v-data-table
                 :headers="headers"
-                :items="this.$store.state.fcm.concepts"
+                :items="$store.state.fcm.concepts"
                 disable-sort
                 disable-filtering
                 disable-pagination
@@ -12,7 +12,7 @@
             <template v-slot:top>
                 <v-toolbar flat color="white">
                     <v-spacer></v-spacer>
-                    <v-dialog v-model="dialog" max-width="500px">
+                    <v-dialog v-model="dialog" max-width="800px">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                                     color="primary"
@@ -35,16 +35,16 @@
                                             <v-text-field v-model="editedItem.name" label="Название"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.type" label="Тип"></v-text-field>
+                                            <v-select :items="$store.state.fcm.conceptTypes" v-model="editedItem.type" label="Тип"></v-select>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.group" label="Группа"></v-text-field>
+                                            <v-select :items="$store.state.fcm.conceptGroups" v-model="editedItem.group" label="Группа"></v-select>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.startValue" label="Начальное значение"></v-text-field>
+                                            <v-select :items="$store.state.fcm.conceptValues" v-model="editedItem.startValue" label="Начальное значение"></v-select>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.goalValue" label="Целеове значение"></v-text-field>
+                                            <v-select :items="$store.state.fcm.conceptValues" v-model="editedItem.goalValue" label="Целевое значение"></v-select>
                                         </v-col>
                                     </v-row>
                                 </v-container>

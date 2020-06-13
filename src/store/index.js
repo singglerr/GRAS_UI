@@ -12,6 +12,22 @@ export default new Vuex.Store({
         },
         fcm: {
             concepts: [],
+            conceptTypes: [
+                "целевой",
+                "управляемый"
+            ],
+            conceptGroups: [
+                "хрупкие",
+                "прехрупкие",
+                "крепкие"
+            ],
+            conceptValues: [
+                "низкое",
+                "ниже среднего",
+                "среднее",
+                "выше среднего",
+                "высокое"
+            ]
         }
     },
 
