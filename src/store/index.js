@@ -38,7 +38,6 @@ export default new Vuex.Store({
         dmp: {
             states: [],
             strategies: [],
-
             n: 0,
         },
         lvm: {}

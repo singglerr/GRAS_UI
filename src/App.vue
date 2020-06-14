@@ -1,9 +1,5 @@
 <template>
-<!--    <v-app>-->
-<!--        <component :is="layout">-->
-            <router-view/>
-<!--        </component>-->
-<!--    </v-app>-->
+    <router-view/>
 </template>
 
 <script>
@@ -16,11 +12,6 @@
         data: () => ({
             //
         }),
-        // computed: {
-        //     layout() {
-        //         return (this.$route.meta.layout || config.DEFAULT_LAYOUT) + "-layout";
-        //     }
-        // },
 
         beforeCreate: async function () {
             try {
@@ -28,7 +19,7 @@
 
                 if (res.data.isLoggedIn) {
                     this.$store.commit("login");
-                    this.$router.go(-1);
+                    this.$router.push({name: "home"});
                 }
             } catch (e) {
                 console.log(e)
