@@ -86,11 +86,12 @@ export default new Vuex.Store({
         },
 
         fcmDeleteConcept(state, payload) {
+            const index = payload.item.id - 1;
             if (state.fcm.matrix.length !== 0) {
-                state.fcm.matrix.splice(payload.index, 1);
+                state.fcm.matrix.splice(index, 1);
                 const lastIndex = (state.fcm.matrix.length - 1).toString();
                 for (let row of state.fcm.matrix) {
-                    for (let i = payload.index; i < state.fcm.matrix.length - 1; i++) {
+                    for (let i = index; i < state.fcm.matrix.length - 1; i++) {
                         row[i.toString()] = row[(i + 1).toString()];
                     }
 
@@ -98,15 +99,16 @@ export default new Vuex.Store({
                 }
             }
 
-            state.fcm.concepts.splice(payload.index, 1);
-            for (let i = payload.index; i < state.fcm.concepts.length; i++) {
+            state.fcm.concepts.splice(index, 1);
+            for (let i = index; i < state.fcm.concepts.length; i++) {
                 state.fcm.concepts[i].id--;
             }
         },
 
         fcmEditConcept(state, payload) {
-            Object.assign(state.fcm.concepts[payload.index], payload.item);
-            state.fcm.matrix[payload.index].name = payload.item.name;
+            const index = payload.item.id - 1;
+            Object.assign(state.fcm.concepts[index], payload.item);
+            state.fcm.matrix[index].name = payload.item.name;
         },
 
         fcmMatrixReset(state) {
@@ -132,13 +134,13 @@ export default new Vuex.Store({
         },
 
         dmpEditState(state, payload) {
-            const index = state.dmp.states.indexOf(payload.item);
+            const index = payload.item.id - 1;
             Object.assign(state.dmp.states[index], payload.item);
             // state.fcm.matrix[payload.index].name = payload.item.name;
         },
 
         dmpDeleteState(state, payload) {
-            const index = state.dmp.states.indexOf(payload.item);
+            const index = payload.item.id - 1;
             // if (state.fcm.matrix.length !== 0) {
             //     state.fcm.matrix.splice(payload.index, 1);
             //     for (let row of state.fcm.matrix) {
@@ -149,6 +151,45 @@ export default new Vuex.Store({
             state.dmp.states.splice(index, 1);
             for (let i = index; i < state.dmp.states.length; i++) {
                 state.dmp.states[i].id--;
+            }
+        },
+
+        dmpAddStrategy(state, payload) {
+            state.dmp.strategies.push(payload.item);
+            const length = state.dmp.strategies.length;
+            state.dmp.strategies[length - 1].id = length;
+
+            // const index = (length - 1).toString();
+            // for (let row of state.fcm.matrix) {
+            //     row[index] = 0;
+            // }
+            //
+            // const newRow = {name: payload.item.name};
+            // for (let i = 0; i < length; i++) {
+            //     newRow[i.toString()] = 0;
+            // }
+            //
+            // state.fcm.matrix.push(newRow);
+        },
+
+        dmpEditStrategy(state, payload) {
+            const index = payload.item.id - 1;
+            Object.assign(state.dmp.strategies[index], payload.item);
+            // state.fcm.matrix[payload.index].name = payload.item.name;
+        },
+
+        dmpDeleteStrategy(state, payload) {
+            const index = payload.item.id - 1;
+            // if (state.fcm.matrix.length !== 0) {
+            //     state.fcm.matrix.splice(payload.index, 1);
+            //     for (let row of state.fcm.matrix) {
+            //         delete row[index.toString()];
+            //     }
+            // }
+
+            state.dmp.strategies.splice(index, 1);
+            for (let i = index; i < state.dmp.strategies.length; i++) {
+                state.dmp.strategies[i].id--;
             }
         },
     }

@@ -78,10 +78,10 @@
                     text: 'Номер',
                     align: 'center',
                     value: 'id',
-                    width: "100px"
+                    width: 80
                 },
-                {text: 'Название', value: 'name', align: "start", width: "500px"},
-                {text: '', value: 'actions', align: "center", width: "100px"},
+                {text: 'Название', value: 'name', align: "start"},
+                {text: '', value: 'actions', align: "center", width: 80},
 
             ],
             editing: false,
@@ -126,19 +126,17 @@
                 this.dialog = false;
                 this.$nextTick(() => {
                     this.editedItem = Object.assign({}, this.defaultItem);
-                    this.editedIndex = -1
+                    this.editing = false;
                 })
             },
 
             save() {
                 if (this.validateItem()) {
-                    if (this.editedIndex > -1) {
+                    if (this.editing) {
                         this.$store.commit({
                             type: "dmpEditState",
                             item: this.editedItem,
                         });
-
-                        this.editing = false;
                     } else {
                         this.$store.commit({
                             type: "dmpAddState",

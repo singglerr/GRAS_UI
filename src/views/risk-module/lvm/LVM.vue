@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-card class="elevation-8 ma-4 pa-4">
-            <v-card-title>Логико-вероятностный метод</v-card-title>
+            <v-card-title>Оценка риска по сценарию</v-card-title>
 
             <v-card-text>
 

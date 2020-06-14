@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-card class="elevation-8 ma-4 pa-4">
-            <v-card-title>Дискретные марковские процессы</v-card-title>
+            <v-card-title>Выбор наилучшей стратегии</v-card-title>
 
             <v-card-text>
                 <p class="mb-0" v-for="description in descriptionParagraphs">{{description}}</p>

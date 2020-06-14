@@ -57,8 +57,8 @@
                 items: [
                     {title: 'На главную', icon: 'mdi-home', to:"/"},
                     {title: 'О модуле', icon: 'mdi-information-outline', to:"/modules/risk/"},
-                    {title: 'Логико-вероятностный метод', icon: 'mdi-crosshairs-question', to:"/modules/risk/lvm"},
-                    {title: 'Дискретные марковские процессы', icon: 'mdi-strategy', to:"/modules/risk/dmp"},
+                    {title: 'Оценка риска по сценарию', icon: 'mdi-crosshairs-question', to:"/modules/risk/lvm"},
+                    {title: 'Выбор наилучшей стратегии', icon: 'mdi-strategy', to:"/modules/risk/dmp"},
                     {title: 'Нечеткие когнитивные карты', icon: 'mdi-view-dashboard', to:"/modules/risk/fcm"},
                 ],
                 color: 'primary',

@@ -101,8 +101,7 @@
                 {text: 'Целевое значение', value: 'goalValue'},
                 {text: '', value: 'actions'},
             ],
-            concepts: [],
-            editedIndex: -1,
+            editing: false,
             editedItem: {
                 id: 0,
                 name: "",
@@ -123,7 +122,7 @@
 
         computed: {
             formTitle() {
-                return this.editedIndex === -1 ? 'Добавление концепта' : 'Изменение концепта'
+                return this.editing ? 'Изменение концепта' : 'Добавление концепта';
             },
         },
 
@@ -134,18 +133,16 @@
         },
 
         methods: {
-
             editItem(item) {
-                this.editedIndex = this.$store.getters.fcmConcepts.indexOf(item);
                 this.editedItem = Object.assign({}, item);
+                this.editing = true;
                 this.dialog = true
             },
 
             deleteItem(item) {
-                const index = this.$store.getters.fcmConcepts.indexOf(item);
                 confirm('Вы действительно хотите удалить этот концепт?') && this.$store.commit({
                     type: "fcmDeleteConcept",
-                    index: index,
+                    item: item,
                 })
             },
 
@@ -153,17 +150,16 @@
                 this.dialog = false;
                 this.$nextTick(() => {
                     this.editedItem = Object.assign({}, this.defaultItem);
-                    this.editedIndex = -1
+                    this.editing = false;
                 })
             },
 
             save() {
                 if (this.validateItem()) {
-                    if (this.editedIndex > -1) {
+                    if (this.editing) {
                         this.$store.commit({
                             type: "fcmEditConcept",
                             item: this.editedItem,
-                            index: this.editedIndex
                         })
                     } else {
                         this.$store.commit({
