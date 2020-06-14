@@ -10,7 +10,7 @@
                 ></v-text-field>
             </v-col>
             <v-spacer></v-spacer>
-            <v-btn @click="compute" color="primary" :loading="loading">Рассчитать</v-btn>
+            <v-btn @click="click" color="primary" :loading="loading">Рассчитать</v-btn>
         </v-row>
         <v-row :hidden="hidden">
             asdonasdnasdasdnl
@@ -27,34 +27,30 @@
         }),
         methods: {
             integer(val) {
-                return !val.toString().includes(".") || "Введите целое число";
+                return !val.toString().includes(".") || "Введите целое число больше 0";
             },
 
             notEmptyField(val) {
-                return val != 0 || "Введите целое число"
+                return val !== 0 || "Введите целое число больше 0"
+            },
+
+            click() {
+                if (this.$store.state.dmp.n.toString().includes(".") || this.$store.state.dmp.n === 0) {
+                    return alert("Число шагов моделирования должно быть целым больше 0!");
+                }
+
+                this.loading = true;
+                this.compute();
+                this.showResult()
             },
 
             compute() {
-                this.loading = true;
-                if (this.$store.state.dmp.n.toString().includes(".") || !this.$store.state.dmp.n) {
-                    alert("Число шагов моделирования должно быть целым!");
-                }
 
-                setTimeout(() => {
-                    this.showResult();
-                    this.loading = false;
-                }, 2000);
             },
 
             showResult() {
                 this.hidden = false;
             }
-
-
         }
     }
 </script>
-
-<style scoped>
-
-</style>

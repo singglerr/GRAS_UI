@@ -115,7 +115,6 @@
 
                     res = await AuthAPI.login({email, password});
                     if (res.data.success) {
-                        this.$store.commit("login");
                         this.$router.push({name: "home"});
                     } else {
                         this.$router.push({name: "login"});

@@ -88,7 +88,6 @@
                         return;
                     }
 
-                    this.$store.commit("login");
                     await this.$router.push({name: "home"});
                 } catch (e) {
                     console.log("catch", e);
