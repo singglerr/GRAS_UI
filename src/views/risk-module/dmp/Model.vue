@@ -26,7 +26,7 @@
                         <v-col cols="10">
                             <v-data-table
                                     :headers="headers"
-                                    :items="dataEx"
+                                    :items="result"
                                     disable-sort
                                     disable-filtering
                                     dense
@@ -52,12 +52,8 @@
         data: () => ({
             loading: false,
             showTabs: false,
-            headers: [
-                {text: "Номер\n шага", value: "index", align: "start", width: 110},
-            ],
-            dataEx: [
-                {index: 1},
-            ],
+            headers: [],
+            result: [],
             statesCount: 0,
             strategiesCount: 0,
         }),
@@ -86,14 +82,22 @@
             },
 
             process() {
-                this.generateHeader();
-                //TODO вычисление дмп
-
-
+                this.generateHeaders();
+                this.calculateQ();
+                this.calculateResult();
+                this.drawGraph();
             },
 
-            generateHeader() {
+            generateHeaders() {
                 const states = this.$store.state.dmp.states;
+                this.headers = [];
+                this.headers.push({
+                    text: "Номер\n шага",
+                    value: "step",
+                    align: "start",
+                    width: 110
+                });
+
                 states.forEach(state => {
                     this.headers.push({
                         text: `V[${state.name}]`,
@@ -110,6 +114,81 @@
                         align: "center"
                     })
                 });
+            },
+
+            calculateQ() {
+                const strategies = this.$store.state.dmp.strategies;
+                strategies.forEach(strategy => {
+                    const q = [];
+                    for (let i = 0; i < strategy.prob.length; i++) {
+                        let sum = 0;
+                        for (let j = 0; j < strategy.prob.length; j++) {
+                            sum += strategy.prob[i][j.toString()] * strategy.profit[i][j.toString()];
+                        }
+
+                        q.push(sum);
+                    }
+
+                    strategy.q = q;
+                })
+            },
+
+            calculateResult() {
+                const states = this.$store.state.dmp.states;
+                const strategies = this.$store.state.dmp.strategies;
+                const stepsCount = this.$store.state.dmp.n;
+
+                this.result.push(this.buildZeroResultObject());
+
+                for (let step = 1; step <= stepsCount; step++) {
+                    const resultObject = {step: step};
+                    for (let fromState = 0; fromState < states.length; fromState++) {
+                        let maxVal = Number.NEGATIVE_INFINITY;
+                        let maxStrategy = 0;
+                        for (let strategy = 0; strategy < strategies.length; strategy++) {
+                            let value = strategies[strategy].q[fromState];
+                            for (let destState = 0; destState < states.length; destState++) {
+                                console.log(strategies[strategy].prob[fromState][destState.toString()]);
+                                console.log(this.result[step - 1], `V${destState}`);
+                                console.log("--------------------------------");
+
+                                value += strategies[strategy].prob[fromState][destState.toString()] * this.result[step - 1][`V${destState + 1}`];
+                            }
+
+                            // console.log(value);
+                            if (value > maxVal) {
+                                maxVal = value;
+                                maxStrategy = strategy;
+                            }
+                        }
+
+                        resultObject[`V${fromState + 1}`] = this.toFixed(maxVal, 5);
+                        resultObject[`D${fromState + 1}`] = strategies[maxStrategy].name;
+                    }
+
+                    this.result.push(resultObject);
+                }
+
+                this.result.splice(0, 1);
+            },
+
+            toFixed(val, count) {
+                const strVal = val.toString();
+                const indexDot = strVal.indexOf(".");
+                if (indexDot === -1) {
+                    return val;
+                }
+
+                return Number.parseFloat(strVal.substring(0, indexDot + count + 1));
+            },
+
+            buildZeroResultObject() {
+                const obj = {step: 0};
+                for (let header = 1; header < this.headers.length; header++) {
+                    obj[this.headers[header].value] = 0;
+                }
+
+                return obj;
             },
 
             showResult() {

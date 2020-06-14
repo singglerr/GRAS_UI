@@ -46,7 +46,8 @@
                                                     dense
                                             >
                                                 <template v-slot:top>
-                                                    <v-card-title class="justify-center">Вероятности переходов</v-card-title>
+                                                    <v-card-title class="justify-center">Вероятности переходов
+                                                    </v-card-title>
                                                 </template>
 
                                                 <template v-slot:body="{ items, headers }">
@@ -54,7 +55,8 @@
                                                     <tr v-for="(item,idx,k) in items" :key="idx">
                                                         <td v-for="(header,key) in headers" :key="key">
                                                             <v-chip v-if="header.value !== 'name'">
-                                                                <v-edit-dialog :return-value.sync="item[header.value]"> {{item[header.value]}}
+                                                                <v-edit-dialog :return-value.sync="item[header.value]">
+                                                                    {{item[header.value]}}
                                                                     <template v-slot:input>
                                                                         <v-text-field
                                                                                 v-model="item[header.value]"
@@ -90,7 +92,8 @@
                                                     dense
                                             >
                                                 <template v-slot:top>
-                                                    <v-card-title class="justify-center">Доходности переходов</v-card-title>
+                                                    <v-card-title class="justify-center">Доходности переходов
+                                                    </v-card-title>
                                                 </template>
 
                                                 <template v-slot:body="{ items, headers }">
@@ -98,7 +101,8 @@
                                                     <tr v-for="(item,idx,k) in items" :key="idx">
                                                         <td v-for="(header,key) in headers" :key="key">
                                                             <v-chip v-if="header.value !== 'name'">
-                                                                <v-edit-dialog :return-value.sync="item[header.value]"> {{item[header.value]}}
+                                                                <v-edit-dialog :return-value.sync="item[header.value]">
+                                                                    {{item[header.value]}}
                                                                     <template v-slot:input>
                                                                         <v-text-field
                                                                                 v-model="item[header.value]"
@@ -185,15 +189,7 @@
                 prob: [],
                 profit: [],
             },
-            defaultItem: {
-                id: 0,
-                name: "",
-                prob: [],
-                profit: [],
-            },
-            stratHeaders: [
-                {text: "Название состояния", value: "name", align: "start", width: 100},
-            ]
+            stratHeaders: [],
         }),
 
         computed: {
@@ -209,6 +205,14 @@
         },
 
         created() {
+            this.stratHeaders = [];
+            this.stratHeaders.push({
+                text: "Название состояния",
+                value: "name",
+                align: "start",
+                width: 100
+            });
+
             this.$store.state.dmp.states.forEach((state, idx) => {
                 this.stratHeaders.push({
                     text: state.name,
@@ -216,20 +220,33 @@
                     align: "start",
                     width: "50px",
                 });
-
-                const newRow = {name: state.name};
-                for (let i = 0; i < this.$store.state.dmp.states.length; i++) {
-                    newRow[i.toString()] = 0;
-                }
-
-                this.defaultItem.prob.push(newRow);
-                this.defaultItem.profit.push({...newRow});
             });
 
-            this.editedItem = Object.assign({}, this.defaultItem);
+            this.editedItem = this.defaultItem();
         },
 
         methods: {
+            defaultItem() {
+                const defaultItem = {
+                    id: 0,
+                    name: "",
+                    prob: [],
+                    profit: [],
+                };
+
+                this.$store.state.dmp.states.forEach(state => {
+                    const newRow = {name: state.name};
+                    for (let i = 0; i < this.$store.state.dmp.states.length; i++) {
+                        newRow[i.toString()] = 0;
+                    }
+
+                    defaultItem.prob.push(newRow);
+                    defaultItem.profit.push({...newRow});
+                });
+
+                return defaultItem;
+            },
+
             editItem(item) {
                 this.editedItem = Object.assign({}, item);
                 this.editing = true;
@@ -246,7 +263,7 @@
             close() {
                 this.dialog = false;
                 this.$nextTick(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem);
+                    this.editedItem = this.defaultItem();
                     this.editing = false;
                 })
             },
