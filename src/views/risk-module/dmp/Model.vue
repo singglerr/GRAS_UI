@@ -14,7 +14,7 @@
             <v-spacer></v-spacer>
             <v-btn @click="click" color="primary" :loading="loading">Рассчитать</v-btn>
         </v-row>
-        <v-row :hidden="hidden" justify="center">
+        <v-row v-show="showTabs" justify="center">
             <v-tabs centered class="ml-4 mr-4" center-active>
                 <v-tabs-slider></v-tabs-slider>
 
@@ -51,7 +51,7 @@
         name: "Model",
         data: () => ({
             loading: false,
-            hidden: true,
+            showTabs: false,
             headers: [
                 {text: "Номер\n шага", value: "index", align: "start", width: 110},
             ],
@@ -113,12 +113,13 @@
             },
 
             showResult() {
-                this.hidden = false;
+                this.showTabs = true;
                 this.loading = false;
             },
 
             drawGraph() {
                 //TODO draw graph dmp
+
             },
 
             getValidationAlert() {
