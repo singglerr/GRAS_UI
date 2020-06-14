@@ -43,6 +43,7 @@
                                                     disable-filtering
                                                     disable-pagination
                                                     hide-default-footer
+                                                    dense
                                             >
                                                 <template v-slot:top>
                                                     <v-card-title class="justify-center">Вероятности переходов</v-card-title>
@@ -86,6 +87,7 @@
                                                     disable-filtering
                                                     disable-pagination
                                                     hide-default-footer
+                                                    dense
                                             >
                                                 <template v-slot:top>
                                                     <v-card-title class="justify-center">Доходности переходов</v-card-title>
