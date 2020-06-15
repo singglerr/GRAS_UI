@@ -77,15 +77,15 @@
                 }
 
                 this.loading = true;
-                this.process();
-                this.showResult()
+                this.process(this.showResult);
             },
 
-            process() {
+            async process(cb) {
                 this.generateHeaders();
                 this.calculateQ();
                 this.calculateResult();
                 this.drawGraph();
+                cb()
             },
 
             generateHeaders() {
@@ -138,6 +138,7 @@
                 const strategies = this.$store.state.dmp.strategies;
                 const stepsCount = this.$store.state.dmp.n;
 
+                this.result = [];
                 this.result.push(this.buildZeroResultObject());
 
                 for (let step = 1; step <= stepsCount; step++) {
@@ -148,14 +149,9 @@
                         for (let strategy = 0; strategy < strategies.length; strategy++) {
                             let value = strategies[strategy].q[fromState];
                             for (let destState = 0; destState < states.length; destState++) {
-                                console.log(strategies[strategy].prob[fromState][destState.toString()]);
-                                console.log(this.result[step - 1], `V${destState}`);
-                                console.log("--------------------------------");
-
                                 value += strategies[strategy].prob[fromState][destState.toString()] * this.result[step - 1][`V${destState + 1}`];
                             }
 
-                            // console.log(value);
                             if (value > maxVal) {
                                 maxVal = value;
                                 maxStrategy = strategy;
