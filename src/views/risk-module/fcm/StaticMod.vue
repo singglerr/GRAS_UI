@@ -253,7 +253,7 @@
                     let sumConsByRow = 0;
                     for (let j = 0; j < Z.length; j++) {
                         let val = 0;
-                        if (Z[i][j].pos !== 0 && Z[i][j].neg !== 0) {
+                        if (Z[i][j].pos !== 0 || Z[i][j].neg !== 0) {
                             val = Math.abs(Z[i][j].pos + Z[i][j].neg) / (Math.abs(Z[i][j].pos) + Math.abs(Z[i][j].neg));
                         }
 
