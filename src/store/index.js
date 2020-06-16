@@ -33,7 +33,13 @@ export default new Vuex.Store({
                 "высокое"
             ],
             matrix: [],
-            staticData: [],
+            static: {
+                show: false,
+                consonance: [],
+                dissonance: [],
+                Z: [],
+                impacts: [],
+            }
         },
         dmp: {
             states: [],
