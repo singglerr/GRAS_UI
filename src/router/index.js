@@ -176,16 +176,16 @@ const router = new Router({
                                 ],
                             },
                         },
-                        {
-                            path: "dynamic",
-                            name: "fcm/dynamic",
-                            component: () => import("../views/risk-module/fcm/DynamicMod"),
-                            meta: {
-                                middleware: [
-                                    auth
-                                ],
-                            },
-                        }
+                        // {
+                        //     path: "dynamic",
+                        //     name: "fcm/dynamic",
+                        //     component: () => import("../views/risk-module/fcm/DynamicMod"),
+                        //     meta: {
+                        //         middleware: [
+                        //             auth
+                        //         ],
+                        //     },
+                        // }
                     ]
                 }
             ]

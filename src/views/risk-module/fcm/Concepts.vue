@@ -39,12 +39,12 @@
                                         <v-col cols="12" sm="6" md="4">
                                             <v-select :items="$store.state.fcm.conceptGroups" v-model="editedItem.group" label="Группа"></v-select>
                                         </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-select :items="$store.state.fcm.conceptValues" v-model="editedItem.startValue" label="Начальное значение"></v-select>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-select :items="$store.state.fcm.conceptValues" v-model="editedItem.goalValue" label="Целевое значение"></v-select>
-                                        </v-col>
+<!--                                        <v-col cols="12" sm="6" md="4">-->
+<!--                                            <v-select :items="$store.state.fcm.conceptValues" v-model="editedItem.startValue" label="Начальное значение"></v-select>-->
+<!--                                        </v-col>-->
+<!--                                        <v-col cols="12" sm="6" md="4">-->
+<!--                                            <v-select :items="$store.state.fcm.conceptValues" v-model="editedItem.goalValue" label="Целевое значение"></v-select>-->
+<!--                                        </v-col>-->
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -97,8 +97,8 @@
                 {text: 'Название', value: 'name'},
                 {text: 'Тип', value: 'type'},
                 {text: 'Группа', value: 'group'},
-                {text: 'Начальное значение', value: 'startValue'},
-                {text: 'Целевое значение', value: 'goalValue'},
+                // {text: 'Начальное значение', value: 'startValue'},
+                // {text: 'Целевое значение', value: 'goalValue'},
                 {text: '', value: 'actions'},
             ],
             editing: false,
@@ -107,16 +107,16 @@
                 name: "",
                 type: "",
                 group: "",
-                startValue: "",
-                goalValue: "",
+                // startValue: "",
+                // goalValue: "",
             },
             defaultItem: {
                 id: 0,
                 name: "",
                 type: "",
                 group: "",
-                startValue: "",
-                goalValue: "",
+                // startValue: "",
+                // goalValue: "",
             },
         }),
 
@@ -178,8 +178,8 @@
                 return this.editedItem.name
                     && this.editedItem.type
                     && this.editedItem.group
-                    && this.editedItem.startValue
-                    && this.editedItem.goalValue
+                    // && this.editedItem.startValue
+                    // && this.editedItem.goalValue
             }
         },
     }
