@@ -189,6 +189,50 @@ const router = new Router({
                     ]
                 }
             ]
+        },
+        {
+            path:"/modules/promethee/",
+            component:()=>import("../views/Promethee-module/PrometheeModule"),
+            name:"promethee-module",
+            meta: {
+                middleware: [
+                    auth
+                ],
+            },
+            children: [
+                {
+                    path: "",
+                    component: () => import("../views/Promethee-module/Promethee"),
+                    name: "promethee-2",
+                    meta: {
+                        middleware: [
+                            auth
+                        ],
+                    },
+                },
+            ]
+        },
+        {
+            path:"/modules/kini-raif/",
+            component:()=>import("../views/kini-raif/KR_Module"),
+            name:"kr_-module",
+            meta: {
+                middleware: [
+                    auth
+                ],
+            },
+            children: [
+                {
+                    path: "",
+                    component: () => import("../views/kini-raif/Kini-Raif"),
+                    name: "kini_raif",
+                    meta: {
+                        middleware: [
+                            auth
+                        ],
+                    },
+                },
+            ]
         }
     ]
 });
