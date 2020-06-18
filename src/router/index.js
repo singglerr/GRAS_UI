@@ -70,6 +70,18 @@ const router = new Router({
                             auth
                         ],
                     },
+                    children: [
+                        {
+                            path: "",
+                            name: "Scenario",
+                            component: () => import("../views/risk-module/lvm/Scenario"),
+                            meta: {
+                                middleware: [
+                                    auth,
+                                ],
+                            }
+                        }
+                    ]
                 },
                 {
                     path: "dmp",

@@ -94,22 +94,22 @@
                 this.headers.push({
                     text: "Номер\n шага",
                     value: "step",
-                    align: "start",
+                    align: "center",
                     width: 110
                 });
 
                 states.forEach(state => {
                     this.headers.push({
-                        text: `V[${state.name}]`,
+                        text: `Общая доходность стратегии для состояния [${state.name}]`,
                         value: `V${state.id}`,
-                        width: 50,
+                        width: 150,
                         align: "center"
                     })
                 });
 
                 states.forEach(state => {
                     this.headers.push({
-                        text: `D[${state.name}]`,
+                        text: `Наилучшая стратегия для состояния [${state.name}]`,
                         value: `D${state.id}`,
                         align: "center"
                     })
