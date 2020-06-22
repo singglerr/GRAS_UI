@@ -145,13 +145,13 @@
                     </div>
 
                     <div>
-                        <router-link to="/modules/promethee/">
+                        <router-link to="/modules/promethee/" style="background-color: white">
                         Метод Promethee
                         </router-link>
                     </div>
 
                     <div>
-                        <router-link to="/modules/kini-raif/">
+                        <router-link to="/modules/kini-raif/" style="background-color: white">
                             Метод Кини и Райфа
                         </router-link>
                     </div>
