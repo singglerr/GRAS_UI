@@ -144,6 +144,18 @@
                         </div>
                     </div>
 
+                    <div>
+                        <router-link to="/modules/promethee/">
+                        Метод Promethee
+                        </router-link>
+                    </div>
+
+                    <div>
+                        <router-link to="/modules/kini-raif/">
+                            Метод Кини и Райфа
+                        </router-link>
+                    </div>
+
                     <div class="clearfix"></div>
                 </div>
             </div>
