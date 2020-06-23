@@ -79,6 +79,14 @@
                         </v-card>
                     </v-col>
                 </v-row>
+
+                <v-snackbar v-model="snack" :timeout="4000" :color="snackColor">
+                    {{ snackText }}
+
+                    <template v-slot:action="{ attrs }">
+                        <v-btn v-bind="attrs" text @click="snack = false">Close</v-btn>
+                    </template>
+                </v-snackbar>
             </v-container>
         </v-content>
     </v-app>
@@ -87,6 +95,7 @@
 <script>
     import AuthAPI from "../../api/auth";
     import Logo from "../../components/Logo";
+    import errors from "../../errors"
 
     export default {
         components: {Logo},
@@ -96,7 +105,9 @@
             email: "",
             emailConfirm: "",
             name: "",
-
+            snackColor: "",
+            snackText: "",
+            snack: false,
         }),
         methods: {
             register: async function () {
@@ -108,7 +119,31 @@
 
                     let res = await AuthAPI.signup({name, email, password, passConfirm});
                     if (!res.data.success) {
-                        //TODO обработка ошибок регистрации
+                        switch (res.data.message) {
+                            case errors.MISSING_CREDENTIALS: {
+                                this.snack = true;
+                                this.snackColor = "error";
+                                this.snackText = "Заполните все поля!";
+                                break;
+                            }
+                            case errors.PASSWORD_MISMATCH: {
+                                this.snack = true;
+                                this.snackColor = "error";
+                                this.snackText = "Пароли не совпадают!";
+                                break;
+                            }
+                            case errors.USER_ALREADY_EXISTS: {
+                                this.snack = true;
+                                this.snackColor = "error";
+                                this.snackText = "Пользователь с таким e-mail же зарегистрирован!";
+                                break;
+                            }
+                            default: {
+                                this.snack = true;
+                                this.snackColor = "error";
+                                this.snackText = "Что-то пошло не так!";
+                            }
+                        }
 
                         return;
                     }
@@ -120,7 +155,9 @@
                         this.$router.push({name: "login"});
                     }
                 } catch (e) {
-                    console.log("catch", e);
+                    this.snack = true;
+                    this.snackColor = "error";
+                    this.snackText = "Что-то пошло не так!";
                 }
             }
         }

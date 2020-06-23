@@ -59,6 +59,14 @@
                     </v-col>
                 </v-row>
                 <v-spacer></v-spacer>
+
+                <v-snackbar v-model="snack" :timeout="4000" :color="snackColor">
+                    {{ snackText }}
+
+                    <template v-slot:action="{ attrs }">
+                        <v-btn v-bind="attrs" text @click="snack = false">Close</v-btn>
+                    </template>
+                </v-snackbar>
             </v-container>
         </v-content>
     </v-app>
@@ -67,12 +75,16 @@
 <script>
     import AuthAPI from "../../api/auth";
     import Logo from "../../components/Logo";
+    import errors from "../../errors";
 
     export default {
         components: {Logo},
         data: () => ({
             password: "",
             email: "",
+            snackColor: "",
+            snackText: "",
+            snack: false,
         }),
         methods: {
             login: async function () {
@@ -83,14 +95,34 @@
                     const res = await AuthAPI.login({email, password});
 
                     if (!res.data.success) {
-                        //TODO алёрт с ошибкой логина
+                        switch (res.data.message) {
+                            case errors.USER_NOT_FOUND: {
+                                this.snack = true;
+                                this.snackColor = "error";
+                                this.snackText = "Пользователь с таким e-mail не найден!";
+                                break;
+                            }
+                            case errors.USER_INCORRECT_PASSWORD: {
+                                this.snack = true;
+                                this.snackColor = "error";
+                                this.snackText = "Неверный пароль!";
+                                break;
+                            }
+                            default: {
+                                this.snack = true;
+                                this.snackColor = "error";
+                                this.snackText = "Что-то пошло не так!";
+                            }
+                        }
 
                         return;
                     }
 
                     await this.$router.push({name: "home"});
                 } catch (e) {
-                    console.log("catch", e);
+                    this.snack = true;
+                    this.snackColor = "error";
+                    this.snackText = "Что-то пошло не так!";
                 }
             }
         }
