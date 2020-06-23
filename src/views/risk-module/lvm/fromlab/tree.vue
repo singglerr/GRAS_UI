@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<organization-chart :datasource="build()" :zoom="true" :pan="true">
+	<div style="height: 100%; width: 100%">
+		<organization-chart :datasource="build()" :zoom="true" :pan="true" >
 			<node slot-scope="{ nodeData }" :node-data="nodeData"></node>
 		</organization-chart>
 	</div>
