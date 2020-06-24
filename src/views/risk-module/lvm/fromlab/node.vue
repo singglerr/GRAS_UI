@@ -1,9 +1,12 @@
 <template>
-    <div class="base">
-        <input type="text" value="Опасная ситуация" class="title">
+    <v-card elevation="5" style="width: 200px !important;">
+        <v-text-field :value="nodeData.name || 'Опасная ситуация'" dense type="text" full-width></v-text-field>
+<!--        <input type="text" :value="nodeData.name" class="title">-->
         <dsdata :node-data="nodeData"></dsdata>
         <controls :node-data="nodeData"></controls>
-    </div>
+    </v-card>
+<!--    <div class="base">-->
+<!--    </div>-->
 </template>
 
 <script>
@@ -37,6 +40,7 @@
         border-color: blue;
         /*padding: 10px;*/
         text-align: left;
-        box-sizing: border-box; 
+        box-sizing: border-box;
+        font-size: 13px;
     }
 </style>

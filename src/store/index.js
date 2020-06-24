@@ -149,9 +149,11 @@ const state = {
 
     //TODO refactor LVM
     lastId: 1,
+    prob: .1,
     nodes: [{
         counter: 0,
         id: 0,
+        name: "Опасное состояние",
         children: [],
         func: 'AND',
         losses: .1,
@@ -159,6 +161,14 @@ const state = {
     }],
     losses: .0,
 };
+
+function reset() {
+    debugger
+    state.lastId = 1;
+    let old = state.nodes[0];
+    state.nodes = [old];
+    state.nodes[0].children = [];
+}
 
 const getters = {
     user(state) {
@@ -172,7 +182,7 @@ const getters = {
     //TODO refactor LVM
     build: state => () => {
         let tree = myBuild(state.nodes[0], state.nodes);
-        calc(tree);
+        state.prob = calc(tree)[1];
         return tree;
     },
     prob: state => () => {
@@ -367,11 +377,16 @@ const mutations = {
     del(state, payload) {
         update(state);
         let old = state.nodes[payload.parent];
+        if (!old) {
+            reset();
+            return;
+        }
+
         old.children = old.children.filter((v, i, arr) => {
             return v != payload.removed;
         });
         state.nodes[old.id] = old;
-    }
+    },
 };
 
 export default new Vuex.Store({
