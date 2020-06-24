@@ -1,7 +1,10 @@
 <template>
 	<v-container fluid class="pt-0">
 		<v-card flat width="650px" class="pb-0 pt-0">
-			<v-card-title class="pb-0 pt-0">Вероятность возникновения опасной ситуации: <v-text-field class="ml-2" v-model="this.$store.state.prob" style="width: 100px" readonly></v-text-field></v-card-title>
+			<v-card-title class="pb-0 pt-0">
+				Вероятность возникновения опасной ситуации:
+				<v-text-field class="ml-2" v-model="this.$store.state.prob" style="width: 100px" readonly></v-text-field>
+			</v-card-title>
 		</v-card>
 
 		<organization-chart :datasource="build()" :zoom="true" :pan="true">
