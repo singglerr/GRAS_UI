@@ -113,9 +113,17 @@
             register: async function () {
                 try {
                     const email = this.email;
+                    const emailConfirm = this.emailConfirm;
                     const name = this.name;
                     const password = this.password;
                     const passConfirm = this.passConfirm;
+
+                    if (email !== emailConfirm) {
+                        this.snack = true;
+                        this.snackColor = "error";
+                        this.snackText = "E-mail не совпадают!";
+                        return
+                    }
 
                     let res = await AuthAPI.signup({name, email, password, passConfirm});
                     if (!res.data.success) {

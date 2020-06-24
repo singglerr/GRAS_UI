@@ -1,6 +1,6 @@
 <template>
     <v-card elevation="5" style="width: 200px !important;">
-        <v-text-field :value="nodeData.name || 'Опасная ситуация'" dense type="text" full-width></v-text-field>
+        <v-text-field :value="nodeData.name || 'Событие'" dense type="text" full-width></v-text-field>
 <!--        <input type="text" :value="nodeData.name" class="title">-->
         <dsdata :node-data="nodeData"></dsdata>
         <controls :node-data="nodeData"></controls>

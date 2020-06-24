@@ -157,7 +157,7 @@
             <template v-slot:no-data>
                 <v-card flat>
                     <v-card-text>
-                        Добавьте новые концепты
+                        Добавьте новые стратегии
                     </v-card-text>
                 </v-card>
             </template>
@@ -298,11 +298,28 @@
                     return "Сумма вероятностей по строкам должна равняться 1!"
                 }
 
+                if (this.valuesOutOfRange()){
+                    return "Значения вероятностей должны находиться в диапазоне от 0 до 1 включительно!"
+                }
+
                 if (this.fillName()) {
                     return "Заполните название стратегии!";
                 }
 
                 return false;
+            },
+
+            valuesOutOfRange() {
+                for (let row of this.editedItem.prob) {
+                    for (let i = 0; i < this.editedItem.prob.length; i++) {
+                        const val = row[i.toString()];
+                        if (val < 0 || val > 1) {
+                            return true;
+                        }
+                    }
+                }
+
+                return false
             },
 
             sumNot1() {
